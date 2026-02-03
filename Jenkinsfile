@@ -3,7 +3,7 @@
 
      environment {
         IMAGE_NAME = 'my_nginx'
-        IMAGE_TAG  ='v1'
+        IMAGE_TAG  ='latest'
         DOCKER_USER = 'archanaadmin02'
       }
       

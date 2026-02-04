@@ -74,16 +74,15 @@ pipeline {
             """             
            }   
         }  
-        
-post {
-   always {
-      echo "Deployment Pipeline Completed."
-          }
-    success {
-       echo "Nginx application deployed successfully!"
-             }
-    failure {
-        echo "Deployment failed. Please check the logs."
+          post {
+             always {
+             echo "Deployment Pipeline Completed."
+               }
+             success {
+                echo "Nginx application deployed successfully!"
+               }
+            failure {
+                echo "Deployment failed. Please check the logs."
              }
           }
       }

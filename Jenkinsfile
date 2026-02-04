@@ -56,8 +56,8 @@ pipeline {
           steps {
              sh """
                echo "---Deploying image using Helm ---"
-               kubectl create ns ${NAMESPACE}
-            helm --install ${RELEASE_NAME} ${CHART_PATH} -n ${NAMESPACE}
+               sudo kubectl create ns ${NAMESPACE}
+               sudo helm --install ${RELEASE_NAME} ${CHART_PATH} -n ${NAMESPACE}
         """
          }
       }   
@@ -67,10 +67,10 @@ pipeline {
                 echo "---Verifying deployment---"
                 sudo kubectl rollout status deployment/${RELEASE_NAME} -n ${NAMESPACE}
                 sudo kubectl get pods -n ${NAMESPACE}
-                kubectl get svc -n ${NAMESPACE}
-                curl http://192.168.49.2:30008
+                sudo kubectl get svc -n ${NAMESPACE}
+                sudo curl http://192.168.49.2:30008
                 echo "---application access outside of cluster"
-                kubectl port-forward service/nginx-service -n ${NAMESPACE} 30008:80
+                sudo kubectl port-forward service/nginx-service -n ${NAMESPACE} 30008:80
             """            
              }
           }

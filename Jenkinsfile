@@ -46,22 +46,14 @@ pipeline {
               echo "---Tagging and Pushing Image ---"
               docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
               docker push ${DOCKER_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+              echo "Docker image ${DOCKER_USER}/${IMAGE_NAME}:${IMAGE_TAG} pushed successfully!"
             """
            }
          }
        }
-     }
-
-     post {
-       success {
-         echo "Docker image ${DOCKER_USER}/${IMAGE_NAME}:${IMAGE_TAG} pushed successfully!"
-       }
-       failure {
-         echo "Build or push failed. check logs above."
-        }
-      }
+    }
     
-      stage('Deploy to Kubernetes') {
+    stage('Deploy to Kubernetes') {
          steps {
             sh """
                echo "---Deploying image using Helm ---"

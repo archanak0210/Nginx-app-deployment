@@ -62,40 +62,37 @@ pipeline {
       }
    
     stage('Deploy to Kubernetes') {
-            steps {
-              script {
+      steps {
                 echo "---Deploying image using Helm ---"
                 sh 'kubectl create ns ${NAMESPACE}'
                 sh 'sudo helm upgrade --install ${RELEASE_NAME} ${CHART_PATH} -n ${NAMESPACE}'
             }
-        }
-    }    
+        }   
       
       stage('Verify Deployment') {
           steps {
-              script {
-                  echo "---Verifying deployment---"
-                  sh """
+            sh"""
+              echo "---Verifying deployment---"
                        sudo kubectl rollout status deployment/${RELEASE_NAME} -n ${NAMESPACE}
                        sudo kubectl get pods -n ${NAMESPACE}
                        kubectl get svc -n ${NAMESPACE}
                        curl http://192.168.49.2:30008
                     echo "---application access outside of cluster"
                          kubectl port-forward service/nginx-service -n ${NAMESPACE} 30008:80
-                    """    
+            """    
                    }   
                 }         
             }
 
             post {
-        always {
-            echo "Deployment Pipeline Completed."
-        }
-        success {
-            echo "Nginx application deployed successfully!"
-        }
-        failure {
-            echo "Deployment failed. Please check the logs."
-        }
-    }
-}
+              always {
+                echo "Deployment Pipeline Completed."
+              }
+            success {
+              echo "Nginx application deployed successfully!"
+            }
+               failure {
+                   echo "Deployment failed. Please check the logs."
+             }
+          }
+      }

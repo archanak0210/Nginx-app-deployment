@@ -5,6 +5,9 @@
         IMAGE_NAME = 'my_nginximage'
         IMAGE_TAG  ='v'
         DOCKER_USER = 'archanaadmin02'
+        CHART_NAME="my-app"
+        RELEASE_NAME="production-app"
+        NAMESPACE="nginx"
       }
       
     stages {
@@ -57,3 +60,5 @@
         }
       }
    }  
+
+   stage

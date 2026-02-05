@@ -77,8 +77,6 @@ pipeline {
                 sudo kubectl get deployment -n ${NAMESPACE}
                 sudo kubectl get pods -n ${NAMESPACE}
                 sudo kubectl get svc -n ${NAMESPACE}
-                echo "---URL to access within cluster"
-                curl http://192.168.49.2:30008
                 echo "---URL to access outside of cluster"
                 sudo minikube service nginx-service -n nginx --url
            """

@@ -8,7 +8,7 @@ pipeline {
         CHART_NAME="nginx-app"
         CHART_PATH="./nginx-app/"
         CHART_DIR_NAME = 'nginx-app'
-        RELEASE_NAME= 'nginx_prod'
+        RELEASE_NAME= 'nginxv1'
         NAMESPACE="nginx"
       }
       
@@ -65,7 +65,7 @@ pipeline {
              sh """
                echo "---Deploying image using Helm ---"
                sudo kubectl create ns ${NAMESPACE}
-               sudo helm install {RELEASE_NAME} nginx-repo/nginx-app -n ${NAMESPACE}
+               sudo helm install ${RELEASE_NAME} nginx-repo/nginx-app -n ${NAMESPACE}
                echo "NGINX application deployed successfully!"
         """
          }

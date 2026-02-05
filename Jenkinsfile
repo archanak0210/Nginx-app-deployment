@@ -74,10 +74,10 @@ pipeline {
           steps {
             sh """
                 echo "---Verifying deployment---"
-                sudo kubectl rollout status deployment/${RELEASE_NAME} -n ${NAMESPACE}
-                sudo kubectl get pods -n ${NAMESPACE}
-                sudo kubectl get svc -n ${NAMESPACE}
-                sudo curl http://192.168.49.2:30008
+                kubectl get deplyoment -n ${NAMESPACE}
+                kubectl get pods -n ${NAMESPACE}
+                kubectl get svc -n ${NAMESPACE}
+                curl http://192.168.49.2:30008
                 echo "---URL to access outside of cluster"
                 minikube service nginx-service -n nginx --url
             """            
